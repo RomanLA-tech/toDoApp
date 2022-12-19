@@ -1,6 +1,7 @@
 import './styles.css';
 import {
 	addTaskByEnter,
+	deleteTaskFromList,
 	openTaskCreateModal,
 	formSubmitHandler,
 	toggleTaskIsCompleted
@@ -18,8 +19,7 @@ import {
 window.addEventListener('load', () => {
 	TASK_LIST.renderTaskList(STORE.getAllTasksList());
 	
-	FORM.addEventListener('submit', (e) => {
-		e.preventDefault();
+	FORM.addEventListener('submit', () => {
 		formSubmitHandler();
 	});
 	
@@ -30,6 +30,10 @@ window.addEventListener('load', () => {
 	FORM_INPUT.addEventListener('keyup', (e) => {
 		addTaskByEnter(e);
 	}, {once: true});
+	
+	TASKS_LIST_ELEMENT.addEventListener('click', e => {
+		deleteTaskFromList(e);
+	});
 	
 	TASKS_LIST_ELEMENT.addEventListener('change', (e) => {
 		toggleTaskIsCompleted(e);

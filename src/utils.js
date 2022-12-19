@@ -1,6 +1,6 @@
 import {Task} from './Task';
 import {
-	FORM, FORM_INPUT, MODAL, SORT_BY_SELECT, STORE, TASK_LIST
+	FORM, FORM_INPUT, MODAL, STORE, TASK_LIST
 } from './consts';
 import {getEditTaskModalTemplate, getTaskCreateModalTemplate} from './templates';
 
@@ -46,6 +46,15 @@ export function addTaskByEnter(e) {
 }
 
 /*---TASKS---*/
+export function deleteTaskFromList(e) {
+	if (e.target.classList.contains('task__delete-btn')) {
+		const task = e.target.closest('.task');
+		const id = task.dataset.id;
+		STORE.deleteTask(id);
+		TASK_LIST.renderTaskList(STORE.getAllTasksList());
+	}
+}
+
 export function toggleTaskIsCompleted(e) {
 	if (e.target.classList.contains('task_checkbox')) {
 		const el = e.target.closest('.task');

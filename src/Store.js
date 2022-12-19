@@ -1,6 +1,3 @@
-import {formatDateToNumber} from './utils';
-
-
 export class Store {
 	
 	getAllTasksList() {
@@ -10,6 +7,11 @@ export class Store {
 	addTask(task) {
 		const allTasks = this.getAllTasksList();
 		allTasks.push(task);
+		this.#saveToLocalStore(allTasks);
+	}
+	
+	deleteTask(taskId) {
+		let allTasks = this.getAllTasksList().filter(task => task.id !== taskId);
 		this.#saveToLocalStore(allTasks);
 	}
 	
@@ -24,10 +26,6 @@ export class Store {
 		task.isCompleted = !task.isCompleted;
 		taskList[taskIndex] = task;
 		this.#saveToLocalStore(taskList);
-	}
-	
-	searchTaskByDescription(filterText) {
-		return this.getAllTasksList().filter(task => task.description.includes(filterText));
 	}
 	
 	#getTaskIndexById({taskList, taskId}) {
