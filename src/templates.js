@@ -59,3 +59,14 @@ export function getTaskCreateModalTemplate({titleText, input}) {
 	
 	return modalContent;
 }
+
+export function getEditTaskModalTemplate() {
+	const modalTextInput = document.createElement('input');
+	modalTextInput.type = 'text';
+	modalTextInput.id = 'modal-edit-text';
+	modalTextInput.classList.add('modal__text-input');
+	
+	return getTaskCreateModalTemplate({
+		titleText: 'Edit task:', input: modalTextInput
+	});
+}
