@@ -1,3 +1,6 @@
+import {formatDateToNumber} from './utils';
+
+
 export class Store {
 	
 	getAllTasksList() {
@@ -38,6 +41,33 @@ export class Store {
 		task.isCompleted = !task.isCompleted;
 		taskList[taskIndex] = task;
 		this.#saveToLocalStore(taskList);
+	}
+	
+	searchTaskByDescription(filterText) {
+		return this.getAllTasksList().filter(task => task.description.includes(filterText));
+	}
+	
+	searchTaskByDate(date) {
+		return this.getAllTasksList().filter(task => task.end === date || task.start === date);
+	}
+	
+	removeCompletedTasks() {
+		const filteredList = this.getAllTasksList().filter(task => task.isCompleted !== true);
+		this.#saveToLocalStore(filteredList);
+	}
+	
+	getActiveTasks() {
+		return this.getAllTasksList().filter(task => task.isCompleted !== true);
+	}
+	
+	getCompletedTasks() {
+		return this.getAllTasksList().filter(task => task.isCompleted === true);
+	}
+	
+	getSortedByDateList() {
+		const sorted = this.getAllTasksList().sort((a, b) => formatDateToNumber(b.end) - formatDateToNumber(a.end));
+		console.log(sorted);
+		return sorted;
 	}
 	
 	#getTaskIndexById({taskList, taskId}) {
