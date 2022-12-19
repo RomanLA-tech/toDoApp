@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang='en'>
+<html lang='en' xmlns='http://www.w3.org/1999/html'>
 <head>
 	<link rel='icon' type='image/x-icon' href='../src/assets/favicon.ico'>
 	<meta charset='utf-8'>
@@ -46,6 +46,27 @@
 		<br>
 	</div>
 	<h2 class='tasks-list__title'>Tasks</h2>
+
+	<!--FILTERS-->
+	<div class='filters__container'>
+		<div class='filters__inputs-group'>
+			<label class='form__label' for='filter-text-input'></label>
+			<input type='text' class='filters__text-input' placeholder='Search task...' id='filter-text-input'>
+			<label class='form__label' for='filter-date-input'></label>
+			<input type='date' class='filters__date-input' id='filter-date-input'>
+			<label class='form__label' for='sort-select'></label>
+			<select class='filters__select' name='sortBy' id='sort-select'>
+				<option value='by-text' selected>By text</option>
+				<option value='by-deadline'>By deadline</option>
+			</select>
+		</div>
+		<div class='filters__buttons-group'>
+			<button class='filters__button' id='filter-all'>All</button>
+			<button class='filters__button' id='filter-active'>Active</button>
+			<button class='filters__button' id='filter-completed'>Completed</button>
+			<button class='filters__button' id='remove-completed'>Clear completed</button>
+		</div>
+	</div>
 
 	<!--TASK_LIST-->
 	<main class='tasks-list__container'>

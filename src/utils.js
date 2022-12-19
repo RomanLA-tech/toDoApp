@@ -1,6 +1,6 @@
 import {Task} from './Task';
 import {
-	FORM, FORM_INPUT, MODAL, STORE, TASK_LIST
+	FORM, FORM_INPUT, MODAL, SORT_BY_SELECT, STORE, TASK_LIST
 } from './consts';
 import {getEditTaskModalTemplate, getTaskCreateModalTemplate} from './templates';
 
@@ -106,5 +106,42 @@ export function openTaskEditModal(e) {
 	});
 }
 
+/*---FILTERS---*/
+export function searchTaskByDescription(e) {
+	const searchInputText = e.target.value;
+	const matchedTasks = STORE.searchTaskByDescription(searchInputText);
+	TASK_LIST.renderTaskList(matchedTasks);
+}
 
+export function searchTaskByDate(e) {
+	const date = e.target.value;
+	const matchedTasks = STORE.searchTaskByDate(date);
+	TASK_LIST.renderTaskList(matchedTasks);
+}
 
+export function getAllTasksList() {
+	TASK_LIST.renderTaskList(STORE.getAllTasksList());
+}
+
+export function getActiveTasksList() {
+	TASK_LIST.renderTaskList(STORE.getActiveTasks());
+}
+
+export function getCompletedTasksList() {
+	TASK_LIST.renderTaskList(STORE.getCompletedTasks());
+}
+
+export function removeCompletedTasksFromList() {
+	STORE.removeCompletedTasks();
+	TASK_LIST.renderTaskList(STORE.getAllTasksList());
+}
+
+export function sortBySelectedValue() {
+	const sortBy = SORT_BY_SELECT.options[SORT_BY_SELECT.selectedIndex].value;
+	if (sortBy === 'by-deadline') {
+		TASK_LIST.renderTaskList(STORE.getSortedByDateList());
+	}
+	else {
+		TASK_LIST.renderTaskList(STORE.getAllTasksList());
+	}
+}
