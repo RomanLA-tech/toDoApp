@@ -1,69 +1,74 @@
-import {ALL_TASKS, TASK_LIST, TASKS_LIST_ELEMENT} from './consts';
-import {Task} from './Task';
+import {TASKS_LIST_ELEMENT} from './consts';
+
 
 export class TaskList {
 	
-	render(tasks) {
-		tasks.forEach(task => TASKS_LIST_ELEMENT.appendChild(this.getTaskHTML(task)));
+	renderTaskList(tasks) {
+		const noTasksMessage = 'No tasks present';
+		TASKS_LIST_ELEMENT.innerHTML = '';
+		if (tasks.length === 0) {
+			TASKS_LIST_ELEMENT.innerHTML = `<h2 class='tasks-list__title'>${noTasksMessage}<h2>`;
+		}
+		else {
+			tasks.forEach(task => {
+				this.renderSingleTask(task);
+			});
+		}
 	}
 	
-	deleteTask(id) {
-		let allTasks = ALL_TASKS.filter(task => task.id !== id);
-		localStorage.clear();
-		localStorage.setItem('tasks', JSON.stringify(allTasks));
+	renderSingleTask(task) {
+		const element = document.createElement('article');
+		element.classList.add('task');
+		element.dataset.id = task.id;
+		element.append(this.#getTaskHTML(task));
+		TASKS_LIST_ELEMENT.prepend(element);
 	}
 	
-	getTaskHTML(task) {
-		const task_el = document.createElement('div');
-		task_el.classList.add('task');
+	#getTaskHTML(task) {
+		let {start, end, description, isCompleted} = task;
+		const isChecked = () => isCompleted ? 'checked' : '';
 		
-		const task_content_el = document.createElement('div');
-		task_content_el.classList.add('content');
+		const taskElement = document.createElement('div');
+		if (isCompleted) {
+			taskElement.classList.add('completed');
+		}
+		else {
+			taskElement.classList.add('task__container');
+		}
 		
-		task_el.appendChild(task_content_el);
+		const checkBosContainer = document.createElement('div');
+		checkBosContainer.classList.add('task__checkbox-container');
+		checkBosContainer.innerHTML = `<input class='task_checkbox' type='checkbox' ${isChecked()} />`;
 		
-		const task_input_el = document.createElement('input');
-		task_input_el.classList.add('text');
-		task_input_el.type = 'text';
-		task_input_el.value = task.description;
-		task_input_el.setAttribute('readonly', 'readonly');
+		const datesContainer = document.createElement('div');
+		datesContainer.innerHTML = `<span class='task__date'>Start: ${start}</span>
+		<span class='task__date'>End: ${end}</span>`;
 		
-		task_content_el.appendChild(task_input_el);
+		const taskDescription = document.createElement('h3');
+		taskDescription.classList.add('task__description');
+		taskDescription.innerText = `${description}`;
 		
-		const task_actions_el = document.createElement('div');
-		task_actions_el.classList.add('actions');
+		const taskActionsContainer = document.createElement('div');
+		taskActionsContainer.classList.add('task__actions-container');
 		
-		const task_edit_el = document.createElement('button');
-		task_edit_el.classList.add('edit');
-		task_edit_el.innerText = 'Edit';
+		const editTaskBtn = document.createElement('button');
+		editTaskBtn.classList.add('task__edit-btn');
+		editTaskBtn.title = 'Edit task';
+		editTaskBtn.innerText = 'Edit';
 		
-		const task_delete_el = document.createElement('button');
-		task_delete_el.classList.add('delete');
-		task_delete_el.innerText = 'Delete';
+		const deleteTaskBtn = document.createElement('button');
+		deleteTaskBtn.classList.add('task__delete-btn');
+		deleteTaskBtn.title = 'Delete task';
+		deleteTaskBtn.innerText = 'Delete';
 		
-		task_actions_el.appendChild(task_edit_el);
-		task_actions_el.appendChild(task_delete_el);
+		taskActionsContainer.append(editTaskBtn, deleteTaskBtn);
 		
-		task_el.appendChild(task_actions_el);
+		taskElement.append(checkBosContainer, datesContainer, taskDescription, taskActionsContainer);
 		
-		task_edit_el.addEventListener('click', () => {
-			if (task_edit_el.innerText.toLowerCase() === 'edit') {
-				task_edit_el.innerText = 'Save';
-				task_input_el.removeAttribute('readonly');
-				task_input_el.focus();
-				new Task().editDescription(task_input_el.value);
-			}
-			else {
-				task_edit_el.innerText = 'Edit';
-				task_input_el.setAttribute('readonly', 'readonly');
-			}
-		});
+		if (isCompleted) {
+			taskElement.classList.add('completed');
+		}
 		
-		task_delete_el.addEventListener('click', () => {
-			TASK_LIST.deleteTask(task.id);
-			TASKS_LIST_ELEMENT.removeChild(task_el);
-		});
-		return task_el;
+		return taskElement;
 	}
 }
-
