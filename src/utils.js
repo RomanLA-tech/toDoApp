@@ -64,6 +64,14 @@ export function toggleTaskIsCompleted(e) {
 	}
 }
 
+export function getEditedTaskData(e) {
+	if (e.target.classList.contains('task__edit-btn')) {
+		const el = e.target.closest('.task');
+		const id = el.dataset.id;
+		return STORE.getTaskDataById(id);
+	}
+}
+
 /*---MODAL---*/
 export function openTaskCreateModal(e) {
 	e.preventDefault();
@@ -82,3 +90,21 @@ export function openTaskCreateModal(e) {
 		FORM.reset();
 	});
 }
+
+export function openTaskEditModal(e) {
+	const {task} = getEditedTaskData(e);
+	const {dateStartInput, dateEndInput, acceptBtn, textInput} = MODAL.openModal(getEditTaskModalTemplate());
+	dateStartInput.value = task.start;
+	dateEndInput.value = task.end;
+	textInput.value = task.description;
+	acceptBtn.addEventListener('click', () => {
+		STORE.editTaskData(task.id, {
+			description: textInput.value, start: dateStartInput.value, end: dateEndInput.value
+		});
+		TASK_LIST.renderTaskList(STORE.getAllTasksList());
+		MODAL.closeModal();
+	});
+}
+
+
+
