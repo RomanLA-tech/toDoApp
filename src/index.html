@@ -1,36 +1,23 @@
 <!doctype html>
-<html lang='en'>
-<head>`
-	<link rel='icon' type='image/x-icon' href='./src/assets/favicon.ico'>
+<html lang='en' xmlns='http://www.w3.org/1999/html'>
+<head>
+	<link rel='icon' type='image/x-icon' href='../src/assets/favicon.ico'>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<link>
 	<title>ToDo app</title>
 </head>
 <body>
+
+<!--MODAL-->
+<div id='modal' class='modal__container hide'></div>
+<div id='overlay' class='hide'></div>
+
+<!--APP-CONTAINER-->
 <div id='content' class='app__container'>
 	<h1>ToDo APP</h1>
-	<!--MODAL-->
-	<div id='modal' class='modal__container hide'>
-		<div class='modal__content'>
-			<h2 class='modal__description'>Task:</h2>
-			<!--<input class='modal__text-input' id='modalText' type='text'>-->
-			<div>
-				<div class='modal__date-inputs-group'>
-					<label class='modal__label' for='modal-start'>Started</label>
-					<input class='modal_date-input' type='date' id='modal-start'>
-				</div>
-				<div>
-					<label class='modal__label' for='modal-end'>Ends</label>
-					<input class='modal_date-input' type='date' id='modal-end'>
-				</div>
-			</div>
-			<div class='modal__button-group'>
-				<button class='modal__button' id='accept-modal-btn'>OK</button>
-				<button class='modal__button' id='close-modal-btn'>Cancel</button>
-			</div>
-		</div>
-	</div>
+
 	<!--FORM-->
 	<div class='form__container'>
 		<form id='form' class='form'>
@@ -41,12 +28,11 @@
 						id='task-input'
 						placeholder='Type your task'
 						required
-						pattern='[A-Za-z0-9]+'
+						pattern='[A-Za-z0-9 ]+'
 						class='form__input'
 				>
 			</div>
 			<div class='form__button-group'>
-				<button class='form__open-modal-btn' id='open-modal-btn'>+</button>
 				<button
 						class='form__submit-btn'
 						type='submit'
@@ -54,13 +40,15 @@
 				>
 					Add task
 				</button>
+				<button class='form__open-modal-btn' id='open-modal-btn'>+</button>
 			</div>
 		</form>
 		<br>
 	</div>
+	<h2 class='tasks-list__title'>Tasks</h2>
+
 	<!--TASK_LIST-->
 	<main class='tasks-list__container'>
-		<h2 class='tasks-list__title'>Tasks</h2>
 		<section>
 			<div id='list' class='task-list__content'></div>
 		</section>
