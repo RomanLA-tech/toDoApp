@@ -66,7 +66,6 @@ export class Store {
 	
 	getSortedByDateList() {
 		const sorted = this.getAllTasksList().sort((a, b) => formatDateToNumber(b.end) - formatDateToNumber(a.end));
-		console.log(sorted);
 		return sorted;
 	}
 	

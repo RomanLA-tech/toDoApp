@@ -34,10 +34,7 @@ import {
 window.addEventListener('load', () => {
 	TASK_LIST.renderTaskList(STORE.getAllTasksList());
 	
-	FORM.addEventListener('submit', (e) => {
-		e.preventDefault();
-		formSubmitHandler();
-	});
+	FORM.addEventListener('submit', formSubmitHandler);
 	
 	OPEN_MODAL_BTN.addEventListener('click', (e) => {
 		openTaskCreateModal(e);
@@ -47,11 +44,11 @@ window.addEventListener('load', () => {
 		addTaskByEnter(e);
 	}, {once: true});
 	
-	TASKS_LIST_ELEMENT.addEventListener('click', e => {
+	TASKS_LIST_ELEMENT.addEventListener('click', (e) => {
 		openTaskEditModal(e);
 	});
 	
-	TASKS_LIST_ELEMENT.addEventListener('click', e => {
+	TASKS_LIST_ELEMENT.addEventListener('click', (e) => {
 		deleteTaskFromList(e);
 	});
 	

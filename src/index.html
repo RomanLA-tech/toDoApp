@@ -1,11 +1,10 @@
 <!doctype html>
-<html lang='en' xmlns='http://www.w3.org/1999/html'>
+<html lang='en'>
 <head>
 	<link rel='icon' type='image/x-icon' href='../src/assets/favicon.ico'>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<link>
 	<title>ToDo app</title>
 </head>
 <body>
@@ -50,12 +49,9 @@
 	<!--FILTERS-->
 	<div class='filters__container'>
 		<div class='filters__inputs-group'>
-			<label class='form__label' for='filter-text-input'></label>
-			<input type='text' class='filters__text-input' placeholder='Search task...' id='filter-text-input'>
-			<label class='form__label' for='filter-date-input'></label>
+				<input type='text' class='filters__text-input' placeholder='Search task...' id='filter-text-input'>
 			<input type='date' class='filters__date-input' id='filter-date-input'>
-			<label class='form__label' for='sort-select'></label>
-			<select class='filters__select' name='sortBy' id='sort-select'>
+				<select class='filters__select' name='sortBy' id='sort-select'>
 				<option value='by-text' selected>By text</option>
 				<option value='by-deadline'>By deadline</option>
 			</select>
