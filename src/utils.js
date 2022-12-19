@@ -82,6 +82,3 @@ export function openTaskCreateModal(e) {
 		FORM.reset();
 	});
 }
-
-
-

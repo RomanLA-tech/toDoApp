@@ -19,7 +19,7 @@ import {
 window.addEventListener('load', () => {
 	TASK_LIST.renderTaskList(STORE.getAllTasksList());
 	
-	FORM.addEventListener('submit', (e) => {
+	FORM.addEventListener('submit', () => {
 		formSubmitHandler();
 	});
 	

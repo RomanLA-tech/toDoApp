@@ -59,4 +59,3 @@ export function getTaskCreateModalTemplate({titleText, input}) {
 	
 	return modalContent;
 }
-

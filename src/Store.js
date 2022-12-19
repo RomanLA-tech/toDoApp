@@ -1,6 +1,3 @@
-import {formatDateToNumber} from './utils';
-
-
 export class Store {
 	
 	getAllTasksList() {
