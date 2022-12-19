@@ -1,23 +1,41 @@
 import './styles.css';
-import {Task} from './Task';
-import {ALL_TASKS, FORM, MODAL, MODAL_CANSEL_BTN, OPEN_MODAL_BTN, TASK_LIST} from './consts';
-
+import {
+	addTaskByEnter,
+	deleteTaskFromList,
+	openTaskCreateModal,
+	formSubmitHandler,
+	toggleTaskIsCompleted
+} from './utils';
+import {
+	FORM,
+	FORM_INPUT,
+	OPEN_MODAL_BTN,
+	STORE,
+	TASK_LIST,
+	TASKS_LIST_ELEMENT
+} from './consts';
 
 
 window.addEventListener('load', () => {
-	TASK_LIST.render(ALL_TASKS);
+	TASK_LIST.renderTaskList(STORE.getAllTasksList());
 	
-	FORM.addEventListener('submit', () => {
-		new Task().createTask();
+	FORM.addEventListener('submit', (e) => {
+		formSubmitHandler();
 	});
 	
 	OPEN_MODAL_BTN.addEventListener('click', (e) => {
-		e.preventDefault();
-		MODAL.openModal();
+		openTaskCreateModal(e);
 	});
 	
-	MODAL_CANSEL_BTN.addEventListener('click', () => {
-		MODAL.closeModal();
+	FORM_INPUT.addEventListener('keyup', (e) => {
+		addTaskByEnter(e);
+	}, {once: true});
+	
+	TASKS_LIST_ELEMENT.addEventListener('click', e => {
+		deleteTaskFromList(e);
 	});
 	
+	TASKS_LIST_ELEMENT.addEventListener('change', (e) => {
+		toggleTaskIsCompleted(e);
+	});
 });
